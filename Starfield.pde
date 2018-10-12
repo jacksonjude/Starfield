@@ -3,7 +3,7 @@ SoundFile file;
 
 ArrayList<Particle> particles = new ArrayList<Particle>();
 
-float speed = 1.0;
+float speed = 2.0;
 
 boolean playingSound = false;
 
@@ -21,17 +21,17 @@ void draw()
 
   if (mousePressed)
   {
-    speed = 4;
+    speed = ((mouseButton == LEFT) ? 4 : ((mouseButton == RIGHT) ? 8 : 0));
     if (!playingSound)
     {
       playingSound = true;
-      file = new SoundFile(this, "Nyan.mp3");
-      file.play();
+      //file = new SoundFile(this, "Nyan.mp3");
+      //file.play();
     }
   }
   else
   {
-    speed = 1;
+    speed = 2;
     playingSound = false;
   }
 
@@ -111,6 +111,8 @@ class OddballParticle implements Particle
 {
   float x, y;
   final float size = 10;
+  final float xAttract = (float)(Math.random()*width)-width/2;
+  final float yAttract = (float)(Math.random()*height)-height/2;
 
   OddballParticle(float x, float y)
   {
@@ -120,8 +122,13 @@ class OddballParticle implements Particle
 
   void move()
   {
-    x += (float)(Math.random()*speed*4)-(speed*4/2);
-    y += (float)(Math.random()*speed*4)-(speed*4/2);
+    float xMult = (xAttract - x > 0) ? speed : -speed;
+    float yMult = (yAttract - y > 0) ? speed : -speed;
+
+    x += ((Math.random()*4*xMult)-(2/xMult));
+    y += ((Math.random()*4*yMult)-(2/yMult));
+    //x += (float)(Math.random()*speed*4)-(speed*4/2);
+    //y += (float)(Math.random()*speed*4)-(speed*4/2);
   }
 
   void show()
