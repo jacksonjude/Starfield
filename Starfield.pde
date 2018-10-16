@@ -37,12 +37,12 @@ void draw()
 
   if (frameCount % ceil(4.0/speed) == 0)
   {
-    particles.add(new NormalParticle(0, 0, 5));
+    particles.add(new NormalParticle());
   }
 
   if (frameCount % ceil(512.0/speed) == 0)
   {
-    particles.add(new JumboParticle(0, 0));
+    particles.add(new JumboParticle());
   }
 
   for (int i = 0; i < particles.size(); i++)
@@ -64,12 +64,12 @@ class NormalParticle implements Particle
   float theta;
   float red, green, blue;
 
-  NormalParticle(float x, float y, float size)
+  NormalParticle()
   {
-    this.x = x;
-    this.y = y;
+    this.x = 0;
+    this.y = 0;
     this.theta = (float)(Math.random()*2*3.1415);
-    this.size = size;
+    this.size = 5;
   }
 
   void move()
@@ -127,14 +127,10 @@ class OddballParticle implements Particle
 
     x += ((Math.random()*4*xMult)-(2/xMult));
     y += ((Math.random()*4*yMult)-(2/yMult));
-    //x += (float)(Math.random()*speed*4)-(speed*4/2);
-    //y += (float)(Math.random()*speed*4)-(speed*4/2);
   }
 
   void show()
   {
-    //rectMode(CENTER);
-    //rect(x, y, size, size);
     beginShape();
     vertex(x - size, y - sqrt(3) * size);
     vertex(x + size, y - sqrt(3) * size);
@@ -153,9 +149,11 @@ class OddballParticle implements Particle
 
 class JumboParticle extends NormalParticle
 {
-  JumboParticle(float x, float y)
+  JumboParticle()
   {
-    super(x, y, 25);
+    super();
+
+    size = 25;
   }
 }
 
